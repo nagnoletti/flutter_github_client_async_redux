@@ -15,13 +15,14 @@ Hope this project can be useful to someone! :metal:
 ## Considerations
 The first impressions I had on the package was really good, but I saw some things I don't personally like:
 
-- It encourages duplication of code, especially while passing callbacks and parameters to both view models and widgets.
+- It encourages duplication of code, especially while passing callbacks and parameters to both view models and widgets. It is difficult to make dynamic extensions and standardization of behaviours, it's simpler to copy-paste or rewrite them.
 
-- The usages seen on its repository examples (followed to make this project) also seem to suggest to have a single store for the entire application, and consequently a single global state, using viewmodels as 'screen states' that translate the global state gathering the only information it needs. I might be wrong, but I think in real-world complex projects this can lead to poor state handling. For example I don't think that the global ```AppState``` should contain loading flags and models that live or die with the screen they are displayed on.
+- The usages seen on its repository examples (followed to make this project) also seem to suggest to have a single store for the entire application, and consequently a single global state, using viewmodels as 'screen states' that translate the global state gathering only the information they need. This is good for separating concerns but may take too long to write and determine all conditions to display some widgets or not. It is also wrong for performance, since every time state changes the entire screen is rebuilt.
 
-- VMs are supposed to contain both arguments and callbacks: I think those things should be separated in a page model (only arguments, which I did putting it into the VM and passing it to the widget) and a presentation logic object, connected to the core logic and observing state changes.
+- VMs are supposed to contain both arguments and callbacks: I'd prefer to separate logic from models connecting widgets through observing state changes.
 
-I really like is the standardized way of doing all sort of things, including navigation and actions that don't include state changes, and also that actions can operate indipendently from each other but be triggered from another action.
+What I like is the standardized way of doing all sort of things, including navigation and actions that don't include state changes, and also that actions can operate indipendently from each other but be triggered from another action.
 
-Overall I like this package for standardizing the developer workflow in a simple and manageable way, separating things almost the way I would do.
-Personally I still prefer a more transparent solution such as BLoC.
+In a nutshell:
+I like this package for standardizing the developer workflow and practices in a good separation between logic layers.
+I don't like it for its excessive verbosity and chunkiness.
